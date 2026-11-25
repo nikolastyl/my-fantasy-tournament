@@ -1,1 +1,1 @@
-<img width="983" height="2268" alt="image" src="https://github.com/user-attachments/assets/03c34775-1680-45f7-a5c9-9d927fdf93ff" />
+# Fantasy Tournament Platform ## Overview Fantasy Tournament Platform is a private fantasy league system designed for amateur football tournaments. ## Features - Fantasy Draft - Team Lineups - Captain Multipliers ## Main Roles ### Admin - Creates tournaments - Creates teams
