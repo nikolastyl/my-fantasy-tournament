@@ -7,13 +7,21 @@ Tournament organizers can manage teams, players, matches and statistics, while p
  
 Features
 •	Fantasy Draft
+
 •	Team Lineups
+
 •	Captain Multipliers
+
 •	Player Trades
+
 •	Free Agent Pickups
+
 •	Match Statistics Tracking
+
 •	Historical Data Tracking
+
 •	Fantasy Rankings
+
  
 Main Roles
 Admin
