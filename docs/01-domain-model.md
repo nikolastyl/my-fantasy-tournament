@@ -1,165 +1,286 @@
 # Domain Model
 
-## Overview
+## Purpose
 
-The Fantasy Tournament Platform combines amateur football tournament management with a draft-based fantasy competition system.
+This document describes the core business entities, their responsibilities and relationships within the Fantasy Tournament Platform.
 
-The platform consists of two connected domains:
+The model is divided into three domains:
 
-1. Tournament Management Domain
-2. Fantasy League Domain
-
-Fantasy performance is directly derived from real match statistics recorded during the tournament.
+- Tournament Domain
+- Fantasy Domain
+- Administration Domain
 
 ---
 
-## Tournament Management Domain
+# Tournament Domain
 
-### Tournament
+## Season
 
-The overall competition that contains teams, rounds and matches.
+Represents a tournament edition for a specific year.
 
-### Team
+### Attributes
+
+- id
+- name
+- year
+- startersCount
+- benchCount
+- transferWindowOpen
+- status
+
+---
+
+## Team
 
 A real football team participating in the tournament.
 
-### Player
+### Attributes
 
-A real football player belonging to a specific team.
-
-### Round
-
-A stage or matchday of the tournament.
-
-### Match
-
-A scheduled game between two teams.
-
-### Player Statistics
-
-The recorded performance of a player during a match.
-
-Examples:
-
-- Goals
-- Assists
-- Clean Sheets
-- Yellow Cards
-- Red Cards
+- id
+- name
+- logo
 
 ---
 
-## Fantasy League Domain
+## Player
 
-### Fantasy League
+A real football player participating in a season.
 
-The fantasy competition that contains all fantasy managers.
+### Attributes
 
-### Fantasy Manager
-
-A registered user participating in the fantasy competition.
-
-### Fantasy Team
-
-The squad owned by a fantasy manager.
-
-### Draft
-
-The process through which players are selected before the competition begins.
-
-### Transfer
-
-A player exchange performed after the draft.
-
-### Captain Selection
-
-The process of selecting a captain whose score multiplier affects fantasy points.
-
-### Fantasy Points
-
-Points generated from real player statistics.
+- id
+- firstName
+- lastName
+- age
+- photo
 
 ---
 
-## Domain Diagram
+## Round
+
+Represents a matchday of the tournament.
+
+### Attributes
+
+- id
+- name
+- roundNumber
+- startDate
+- endDate
+- status
+
+---
+
+## Match
+
+Represents a football match between two teams.
+
+### Attributes
+
+- id
+- homeScore
+- awayScore
+- status
+- finalized
+
+---
+
+## MatchEvent
+
+Represents a recorded event during a match.
+
+### Attributes
+
+- id
+- eventType
+- createdAt
+
+### Supported Events
+
+- Goal
+- Assist
+- Save
+- Yellow Card
+- Red Card
+- Own Goal
+
+---
+
+## PlayerStatistics
+
+Stores the aggregated statistics of a player for a specific match.
+
+### Attributes
+
+- goals
+- assists
+- saves
+- yellowCards
+- redCards
+- ownGoals
+- fantasyPoints
+
+---
+
+# Fantasy Domain
+
+## Manager
+
+Represents a fantasy participant.
+
+### Attributes
+
+- id
+- firstName
+- lastName
+- email
+- password
+
+---
+
+## FantasyTeam
+
+Represents the team owned by a manager.
+
+### Attributes
+
+- id
+- name
+- logo
+
+---
+
+## Lineup
+
+Represents the active lineup for a specific round.
+
+### Attributes
+
+- id
+- locked
+- submittedAt
+
+---
+
+## LineupPlayer
+
+Represents a player selected in a lineup.
+
+### Attributes
+
+- role
+
+### Supported Roles
+
+- STARTER
+- BENCH
+- CAPTAIN
+
+---
+
+## Trade
+
+Represents a trade proposal between managers.
+
+### Attributes
+
+- id
+- status
+- proposedAt
+
+### Supported Statuses
+
+- PENDING
+- ACCEPTED
+- REJECTED
+- CANCELLED
+
+---
+
+## Transaction
+
+Represents roster movement history.
+
+### Supported Types
+
+- DRAFT_ASSIGNMENT
+- PICKUP
+- DROP
+- TRADE
+
+---
+
+## Ranking
+
+Represents fantasy standings.
+
+### Attributes
+
+- totalPoints
+- roundPoints
+- position
+
+---
+
+# Administration Domain
+
+## Administrator
+
+System administrator that manages tournaments, players and managers.
+
+---
+
+## Scorekeeper
+
+User responsible for recording match events and finalizing matches.
+
+---
+
+# Domain Relationships
 
 ```mermaid
 classDiagram
 
-class Tournament
-class Round
-class Match
-class Team
-class Player
-class PlayerStatistics
-
-class FantasyLeague
-class FantasyManager
-class FantasyTeam
-class Transfer
-
-Tournament "1" --> "*" Team
-Tournament "1" --> "*" Round
+Season "1" --> "*" Team
+Season "1" --> "*" Player
+Season "1" --> "*" Round
+Season "1" --> "*" Manager
 
 Round "1" --> "*" Match
 
 Team "1" --> "*" Player
 
+Match "1" --> "*" MatchEvent
 Match "1" --> "*" PlayerStatistics
 
+Player "1" --> "*" MatchEvent
 Player "1" --> "*" PlayerStatistics
 
-FantasyLeague "1" --> "*" FantasyManager
+Manager "1" --> "1" FantasyTeam
 
-FantasyManager "1" --> "1" FantasyTeam
+FantasyTeam "1" --> "*" Transaction
+FantasyTeam "1" --> "*" Lineup
 
-FantasyTeam "1" --> "*" Player
+Lineup "1" --> "*" LineupPlayer
 
-Transfer "*" --> "1" FantasyTeam
-Transfer "*" --> "1" Player
+LineupPlayer "*" --> "1" Player
+
+Trade "*" --> "1" FantasyTeam
+
+Ranking "*" --> "1" FantasyTeam
 ```
 
 ---
 
-## Business Rules
+# Business Rules
 
-### BR-01
-
-A player belongs to exactly one real team.
-
-### BR-02
-
-A match is played between exactly two teams.
-
-### BR-03
-
-Player statistics are recorded only after a match has been completed.
-
-### BR-04
-
-Each fantasy manager owns exactly one fantasy team.
-
-### BR-05
-
-A fantasy team contains multiple players.
-
-### BR-06
-
-A real player may belong to only one fantasy team at a time.
-
-### BR-07
-
-A player selected during the draft becomes unavailable to other fantasy managers.
-
-### BR-08
-
-Fantasy points are calculated from real player statistics.
-
-### BR-09
-
-Transfers can only occur according to league rules.
-
-### BR-10
-
-Every fantasy team must designate exactly one captain before a matchday.
-
+- Each season contains exactly one fantasy league.
+- Each manager owns exactly one fantasy team per season.
+- A player may belong to only one fantasy team at a time.
+- A lineup is created per round.
+- Lineups become locked when the round starts.
+- Transfers close when a round starts.
+- A trade requires acceptance by another manager.
+- Fantasy points are generated from match events.
+- Match events can be corrected by administrators.
+- Rankings are updated after match finalization.
