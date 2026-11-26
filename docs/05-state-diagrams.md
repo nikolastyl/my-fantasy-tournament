@@ -163,6 +163,8 @@ Locked --> [*]
 - Exactly one captain must be selected.
 - Locked lineups cannot be edited.
 
+- If a manager has not submitted a lineup before round lock, the system automatically copies the most recent valid lineup from the previous round and locks it for the current round.
+
 ---
 
 # Business Rule Mapping
@@ -187,4 +189,3 @@ The Fantasy Tournament Platform contains four major state-driven entities:
 - Lineup
 
 These state diagrams define the operational rules that govern fantasy gameplay and tournament management.
-
