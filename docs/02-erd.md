@@ -179,6 +179,27 @@ erDiagram
 
 ---
 
+
+
+## FANTASY_TEAM_PLAYERS
+
+Tracks the current roster ownership of players.
+
+| Column | Description |
+|----------|----------|
+| id | Primary Key |
+| fantasy_team_id | FK -> fantasy_teams |
+| player_id | FK -> players |
+| joined_at | Timestamp |
+| left_at | Nullable Timestamp |
+
+### Constraint
+
+A player may belong to only one fantasy team at a time within a season.
+
+
+---
+
 ## LINEUPS
 
 | Column | Description |
@@ -198,7 +219,8 @@ erDiagram
 | id | Primary Key |
 | lineup_id | FK -> lineups |
 | player_id | FK -> players |
-| role | STARTER / BENCH / CAPTAIN |
+| role | STARTER / BENCH |
+| is_captain | Boolean |
 
 ---
 
@@ -263,3 +285,13 @@ A trade requires acceptance from the receiving manager.
 
 Every transaction must be stored permanently for historical tracking.
 
+
+---
+
+# ERD Review Decisions
+
+- Added FantasyTeamPlayer entity to represent current roster ownership.
+- Transactions preserve history while FantasyTeamPlayer stores current state.
+- LineupPlayer uses role (STARTER/BENCH) and is_captain flag.
+- PlayerStatistics must be unique per player and match.
+- Transactions should support from_team and to_team relationships during implementation.
