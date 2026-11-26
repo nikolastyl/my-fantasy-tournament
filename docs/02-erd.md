@@ -78,6 +78,8 @@ erDiagram
 | year | Tournament year |
 | starters_count | Number of starters |
 | bench_count | Number of substitutes |
+| captain_multiplier | Captain points multiplier |
+| bench_multiplier | Bench points multiplier |
 | transfer_window_open | Transfer status |
 | status | ACTIVE / COMPLETED |
 |
@@ -295,3 +297,14 @@ Every transaction must be stored permanently for historical tracking.
 - LineupPlayer uses role (STARTER/BENCH) and is_captain flag.
 - PlayerStatistics must be unique per player and match.
 - Transactions should support from_team and to_team relationships during implementation.
+
+
+## Additional Constraints
+
+### PLAYER_STATISTICS
+
+```text
+UNIQUE(player_id, match_id)
+```
+
+Ensures that a player can have only one statistics record per match.
