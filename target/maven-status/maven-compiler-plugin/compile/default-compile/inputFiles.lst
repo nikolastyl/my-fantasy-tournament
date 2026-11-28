@@ -1,0 +1,15 @@
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/FantasyTournamentApplication.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/config/bootstrap/AppDataInitializer.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/config/bootstrap/SeasonInitializer.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/config/jpa/JpaAuditingConfig.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/domain/season/Season.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/domain/season/SeasonStatus.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/domain/shared/BaseEntity.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/domain/user/Role.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/domain/user/User.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/repository/SeasonRepository.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/repository/UserRepository.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/service/season/SeasonService.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/service/season/SeasonServiceImpl.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/service/user/UserService.java
+/Users/nikolastyl/Documents/my-fantasy-tournament/src/main/java/com/fantasy/fantasy_tournament/service/user/UserServiceImpl.java
